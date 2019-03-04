@@ -1,0 +1,58 @@
+/this will calculate x to the power of y
+/will first Output x, then Output y, then Output x to the y
+
+Input				/input base
+store x 
+Output
+Input
+store y				/input power
+Output
+
+jns powerFunction
+load result
+output
+halt
+
+/first multiply x by itself x nb of times
+powerFunction, dec 0
+load x
+store result										/copy x to x1 (temp value, holds current value of base) 
+powerAgain,load result								/reinitialize X1 if require (ie power requirement not met)
+store x1 	
+multiplication, load result				/result will hold final value (data being overwritten all the time)
+add x1
+store result 
+load innerLoop					/nb of loops? 
+add one 					/new nb of loop
+Store innerLoop
+load x						/compare loops to x
+subt innerLoop
+Skipcond 400
+jump multiplication
+Clear
+add one
+Store innerLoop								/reset innerLoop, x was multiplied by itself x times
+
+
+/this portion check if power is met 
+load outerLoop								/the 1st time we get here x is to pow 2
+add one											/... so add 1 
+Store outerLoop 					/incremented outerLoop by one (#of times x has been multiplied by itself)
+Subt y						
+Skipcond 400				/check if we meet the power requirement?  
+jump powerAgain
+
+JumpI powerFunction				/the nb x has been powered y times, return to where we left off (ie main)
+
+
+
+
+
+x, dec 0					/base
+x1, dec 0
+y, dec 0					/power
+result, dec 0
+
+innerLoop, dec 1
+outerLoop, dec 1
+one, dec 1
